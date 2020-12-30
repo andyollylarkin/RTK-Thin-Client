@@ -54,7 +54,7 @@ swapon $installation_disk"2";
 dpkg-reconfigure vipnetclient-gui;
 
 #Set hostname
-echo "VDI-client:$(cat /proc/sys/kernel/random/uuid|egrep -o '^(\w|\d|\S){0,5}')" > /etc/hostname;
+echo "VDI\-client\:$(cat /proc/sys/kernel/random/uuid|egrep -o '^(\w|\d|\S){0,5}')" > /etc/hostname;
 
 #Editing fstab
 export root_disk=$(blkid $installation_disk"1"|egrep -o '\sUUID=\"(\w|\d|\S)+\"'|awk '{ print $1 }');
