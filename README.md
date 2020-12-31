@@ -1,12 +1,11 @@
 # RTK-Thin-Client
-Rostelecom thin client installation and iso image generation scripts
+### Description: Rostelecom thin client installation and iso image generation scripts
 
 ## Requirements:
 - System RescueCD [v7.01](https://osdn.net/projects/systemrescuecd/storage/releases/7.01/systemrescue-7.01-amd64.iso)<br>
 - xorisso<br>
 - squashfs-tools<br>
 ## TODO:
-- Setup user password when installing system<br>
-- Edit installation path<br>
-
-
+- Setup user password when installing system[x]<br>
+- Add tionix client installation script and configuration files to repository[ ]<br> 
+- Edit installation path[ ]<br>
