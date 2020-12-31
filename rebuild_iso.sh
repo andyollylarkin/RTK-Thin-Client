@@ -33,7 +33,7 @@ cd /mnt/toor
 tar --numeric-owner -cvpJf /tmp/target_system/tionix_client_archive.tar.xz . 
 cd -;
 cp -Rfv /tmp/target_system/tionix_client_archive.tar.xz /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root/;
-cp /root/install_tc.sh /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
+cp /root/RTK\-Thin\-Client/install_tc.sh /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
 
 
 mksquashfs squashfs-root /tmp/iso_custom/sysresccd/x86_64/airootfs.sfs -xattrs;
