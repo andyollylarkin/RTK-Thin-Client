@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export installation_disk=$1;
+export disk_space=""
 
 
 
