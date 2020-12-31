@@ -6,6 +6,7 @@ Rostelecom thin client installation and iso image generation scripts
 - xorisso<br>
 - squashfs-tools<br>
 ## TODO:
-- Setup user password when installing system
+- Setup user password when installing system<br>
+- Edit installation path<br>
 
 
