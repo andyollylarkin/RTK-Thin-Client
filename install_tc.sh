@@ -7,11 +7,22 @@ export installation_disk=$1;
 echo -e "\033[31m\033[4mWIPING DISK:\033[0m"
 wipe $installation_disk;
 
+while true; do
+    read -p "\033[101mSet disk space for system (Dont recommend set more than 20Gb),(Set as xxG, where xx is the number of Gigabytes).\033[0m\n" space
+    if [[ echo ${space}|grep -Eo "\w\b" == "G" ]]; then
+        disk_space=$space;
+        break;
+    else
+        print "\033[101mIncorrect input format. Use xxG, e.g.\033[0m \033[102m20G\033[0m";
+        continue;
+    fi
+done
+
 
 echo -e "\033[31m\033[4mPREPARING PARTITIONS:\033[0m"
 echo "label: dos"|sfdisk $installation_disk;
 echo "
-,+20G,83,*
+,${disk_space},83,*
 ,+3G,82,
 "|sfdisk $installation_disk;
 
