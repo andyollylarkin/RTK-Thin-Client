@@ -27,7 +27,7 @@ echo "
 ,+3G,82,
 "|sfdisk $installation_disk;
 
-mkfs.ext4 -F -L "Rostelecom" $installation_disk"1";
+mkfs.ext4 -F -L "TC_RootDisk" $installation_disk"1";
 
 partprobe $installation_disk;
 

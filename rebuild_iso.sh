@@ -3,8 +3,8 @@
 if (( "$#" < 3 )); then
 	echo "1) Device for write ISO image e.g /dev/sdX \
 	      2) Sourse image RescueCD path \
-      	      3) System disk device e.g. /dev/sdX"
-		      exit;
+          3) System disk device e.g. /dev/sdX"
+		  exit;
 fi	     
 
 device=$1;
@@ -13,7 +13,7 @@ system_disk=$3;
 
 XZ_OPT="-7 -T0";
 
-if [ ! -d '/mnt/toor' ]
+if [ -d '/mnt/toor' ]
 then
 	rm -Rfv /mnt/toor
 fi
@@ -46,12 +46,29 @@ xorriso -as mkisofs -o /tmp/RTK_thin_client.iso -b isolinux/isolinux.bin -c isol
 isohybrid /tmp/RTK_thin_client.iso;
 
 #Write ISO image to USB stick?
-echo -e "\033[31m\033[4mWRITE ISO TO USB STICK:\033[0m"
-dd if=/tmp/RTK_thin_client.iso of=$device bs=1M status=progress;
-fatlabel $device RESCUE701;
+while true; do
+    read -p "\033[31m\033[4mWRITE ISO TO USB STICK:\033[0m" Question
+    case $Question in
+        Y|y|yes)
+            dd if=/tmp/RTK_thin_client.iso of=$device bs=1M status=progress;
+            fatlabel $device RESCUE701;
+            break
+            ;;
+        N|n|no)
+            echo "No"
+            break
+            ;;
+        *)
+            echo "Yes or No!"
+            continue
+            ;;
+    esac
+done
 
 #FINILIZE - delete temporary files
 cp -f /tmp/RTK_thin_client.iso /root/
+echo -e "\033[31m\033[4mCALCULATE MD5 SUM OF IMAGE\033[0m";
+md5sum /root/RTK_thin_client.iso > /root/RTK_thin_client.md5
 umount $system_disk;
 unset device;
 unset source_image;
