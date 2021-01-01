@@ -1,30 +1,19 @@
 #!/bin/bash
 
 if (( "$#" < 3 )); then
-	echo "1) Device for write ISO image e.g /dev/sdX \
+	print "1) Device for write ISO image e.g /dev/sdX \
 	      2) Sourse image RescueCD path \
           3) System disk device e.g. /dev/sdX"
-		  exit;
+		  exit 64;
 fi	     
 
 #Check is root
 if [[ $(whoami) != "root" ]]
 then
     print "Please login as root!\n";
-    exit;
+    exit 2;
 else
     export ROOT_DIR=$HOME;
-fi
-
-device=$1;
-source_image=$2;
-system_disk=$3;
-
-XZ_OPT="-7 -T0";
-
-if [ -d '/mnt/toor' ]
-then
-	rm -Rfv /mnt/toor
 fi
 
 if [ -f "${ROOT_DIR}/systemrescue-7.01-amd64.iso" ]
@@ -36,6 +25,16 @@ else
     echo "Image already exist. Continue build.";
 fi
 
+if [ -d '/mnt/toor' ]
+then
+	rm -Rfv /mnt/toor
+fi
+
+device=$1;
+source_image=$2;
+system_disk=$3;
+
+XZ_OPT="-7 -T0";
 
 mkdir /tmp/{iso_custom,source_image,target_system};
 mount -o loop "${ROOT_DIR}/${source_image}" /tmp/source_image;
