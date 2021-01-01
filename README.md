@@ -6,6 +6,7 @@
 - xorisso<br>
 - squashfs-tools<br>
 ## TODO:
-- Setup user password when installing system[x]<br>
-- Add tionix client installation script and configuration files to repository[ ]<br> 
-- Edit installation path[ ]<br>
+- [x] Setup user password when installing system<br>
+- [ ] Add tionix client installation script and configuration files to repository<br> 
+- [ ] Edit installation path<br>
+- [ ] Build tionix-client **deb** package
