@@ -7,6 +7,15 @@ if (( "$#" < 3 )); then
 		  exit;
 fi	     
 
+#Check is root
+if [[ $(whoami) != "root" ]]
+then
+    print "Please login as root!\n";
+    exit;
+else
+    export ROOT_DIR=$HOME;
+fi
+
 device=$1;
 source_image=$2;
 system_disk=$3;
@@ -18,8 +27,18 @@ then
 	rm -Rfv /mnt/toor
 fi
 
+if [ -f "${ROOT_DIR}/systemrescue-7.01-amd64.iso" ]
+then
+    echo -e "\033[31m\033[4mDOWNLOAD SYSTEM RESCUE IMAGE:\033[0m" Question
+    wget "https://osdn.net/frs/redir.php?m=dotsrc&f=%2Fstorage%2Fg%2Fs%2Fsy%2Fsystemrescuecd%2Freleases%2F7.01%2Fsystemrescue-7.01-amd64.iso" \
+    --output-document="${ROOT_DIR}/systemrescue-7.01-amd64.iso";
+else
+    echo "Image already exist. Continue build.";
+fi
+
+
 mkdir /tmp/{iso_custom,source_image,target_system};
-mount -o loop $source_image /tmp/source_image;
+mount -o loop "${ROOT_DIR}/${source_image}" /tmp/source_image;
 
 #Copy all files from original System Rescue CD
 cp -Rfv /tmp/source_image/* /tmp/iso_custom/;
@@ -33,7 +52,7 @@ cd /mnt/toor
 tar --numeric-owner -cvpJf /tmp/target_system/tionix_client_archive.tar.xz . 
 cd -;
 cp -Rfv /tmp/target_system/tionix_client_archive.tar.xz /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root/;
-cp /root/RTK\-Thin\-Client/install_tc.sh /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
+cp "${ROOT_DIR}/RTK\-Thin\-Client/install_tc.sh" /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
 
 
 mksquashfs squashfs-root /tmp/iso_custom/sysresccd/x86_64/airootfs.sfs -xattrs;
@@ -66,9 +85,9 @@ while true; do
 done
 
 #FINILIZE - delete temporary files
-cp -f /tmp/RTK_thin_client.iso /root/
+cp -f /tmp/RTK_thin_client.iso ${ROOT_DIR};
 echo -e "\033[31m\033[4mCALCULATE MD5 SUM OF IMAGE\033[0m";
-md5sum /root/RTK_thin_client.iso > /root/RTK_thin_client.md5
+md5sum "${ROOT_DIR}/RTK_thin_client.iso" > "${ROOT_DIR}/RTK_thin_client.md5";
 umount $system_disk;
 unset device;
 unset source_image;
