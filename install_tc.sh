@@ -51,8 +51,7 @@ mount --make-rslave /mnt/system/dev;
 
 echo -e "\033[31m\033[4mENTERING TO CHROOT:\033[0m"
 chroot /mnt/system /bin/bash -x <<'EOF'
-source /etc/profile;
-export password="";
+source /etc/profile >> /dev/null;
 
 #Install GRUB
 grub-install --force $installation_disk;
@@ -66,7 +65,7 @@ swapon $installation_disk"2";
 dpkg-reconfigure vipnetclient-gui;
 
 #Set hostname
-echo "VDI\-client\:$(cat /proc/sys/kernel/random/uuid|egrep -o '^(\w|\d|\S){0,5}')" > /etc/hostname;
+echo "VDI_client_$(cat /proc/sys/kernel/random/uuid|egrep -o '^(\w|\d|\S){0,5}')" > /etc/hostname;
 
 #Setup new password for user
 print "\033[101mYour need to change default password for user: tionix-user, and tell him it!\033[0m\n";
