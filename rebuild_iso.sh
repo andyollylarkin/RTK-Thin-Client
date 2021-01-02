@@ -18,7 +18,7 @@ fi
 
 if [ -f "${ROOT_DIR}/systemrescue-7.01-amd64.iso" ]
 then
-    echo -e "\033[31m\033[4mDOWNLOAD SYSTEM RESCUE IMAGE:\033[0m" Question
+    echo -e "\033[31m\033[4mDOWNLOAD SYSTEM RESCUE IMAGE:\033[0m";
     wget "https://osdn.net/frs/redir.php?m=dotsrc&f=%2Fstorage%2Fg%2Fs%2Fsy%2Fsystemrescuecd%2Freleases%2F7.01%2Fsystemrescue-7.01-amd64.iso" \
     --output-document="${ROOT_DIR}/systemrescue-7.01-amd64.iso";
 else
