@@ -13,7 +13,7 @@
 
 ## Install Tionix-VDI-Client package
 ```shell
-wget [tionixvdiclient.deb](https://github.com/andyollylarkin/RTK-Thin-Client/releases/download/t-2.5/tionixvdiclient.deb)<br>
+wget https://github.com/andyollylarkin/RTK-Thin-Client/releases/download/t-2.5/tionixvdiclient.deb
 sudo apt-get install -f ./tionixvdiclient.deb
 ```
 
