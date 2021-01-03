@@ -9,4 +9,11 @@
 - [x] Setup user password when installing system<br>
 - [ ] Add tionix client installation script and configuration files to repository<br> 
 - [ ] Edit installation path<br>
-- [ ] Build tionix-client **deb** package
+- [x] Build tionix-client **deb** package
+
+## Install Tionix-VDI-Client package
+```shell
+wget [tionixvdiclient.deb](https://github.com/andyollylarkin/RTK-Thin-Client/releases/download/t-2.5/tionixvdiclient.deb)<br>
+sudo apt-get install -f ./tionixvdiclient.deb
+```
+
