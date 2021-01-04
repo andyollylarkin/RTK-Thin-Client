@@ -1,8 +1,12 @@
 #!/bin/bash
 
+device=$1;
+source_image=$2;
+system_disk=$3;
+
 if (( "$#" < 3 )); then
 	print "1) Device for write ISO image e.g /dev/sdX \
-	      2) Sourse image RescueCD path \
+	      2) Sourse image RescueCD FULL path \
           3) System disk device e.g. /dev/sdX"
 		  exit 64;
 fi	     
@@ -16,13 +20,15 @@ else
     export ROOT_DIR=$HOME;
 fi
 
-if [ ! -f "${ROOT_DIR}/systemrescue-7.01-amd64.iso" ]
+if [ ! -f "$source_image" ]
 then
     echo -e "\033[31m\033[4mDOWNLOAD SYSTEM RESCUE IMAGE:\033[0m";
     wget "https://osdn.net/frs/redir.php?m=dotsrc&f=%2Fstorage%2Fg%2Fs%2Fsy%2Fsystemrescuecd%2Freleases%2F7.01%2Fsystemrescue-7.01-amd64.iso" \
     --output-document="${ROOT_DIR}/systemrescue-7.01-amd64.iso";
+    source_image=${ROOT_DIR}/systemrescue-7.01-amd64.iso;
 else
     echo "Image already exist. Continue build.";
+    source_image=$2;
 fi
 
 if [ -d '/mnt/toor' ]
@@ -30,14 +36,11 @@ then
 	rm -Rfv /mnt/toor
 fi
 
-device=$1;
-source_image=$2;
-system_disk=$3;
 
 XZ_OPT="-7 -T0";
 
 mkdir /tmp/{iso_custom,source_image,target_system};
-mount -o loop "${ROOT_DIR}/${source_image}" /tmp/source_image;
+mount -o loop "${source_image}" /tmp/source_image;
 
 #Copy all files from original System Rescue CD
 cp -Rfv /tmp/source_image/* /tmp/iso_custom/;
@@ -51,7 +54,7 @@ cd /mnt/toor
 tar --numeric-owner -cvpJf /tmp/target_system/tionix_client_archive.tar.xz . 
 cd -;
 cp -Rfv /tmp/target_system/tionix_client_archive.tar.xz /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root/;
-cp "${ROOT_DIR}/RTK\-Thin\-Client/install_tc.sh" /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
+cp "${ROOT_DIR}/RTK-Thin-Client/install_tc.sh" /tmp/iso_custom/sysresccd/x86_64/squashfs-root/root;
 
 
 mksquashfs squashfs-root /tmp/iso_custom/sysresccd/x86_64/airootfs.sfs -xattrs;
