@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/bash 
 export installation_disk=$1;
 export disk_space=""
 
@@ -53,6 +52,9 @@ echo -e "\033[31m\033[4mENTERING TO CHROOT:\033[0m"
 chroot /mnt/system /bin/bash -x <<'EOF'
 source /etc/profile >> /dev/null;
 
+#Generate initramfs
+update-initramfs -c -k $(ls /boot|egrep -o "$config-$(ls -l /boot | grep -m 1 -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$');
+
 #Install GRUB
 grub-install --force $installation_disk;
 grub-mkconfig -o /boot/grub/grub.cfg;
@@ -66,6 +68,17 @@ dpkg-reconfigure vipnetclient-gui;
 
 #Set hostname
 echo "VDI_client_$(cat /proc/sys/kernel/random/uuid|egrep -o '^(\w|\d|\S){0,5}')" > /etc/hostname;
+
+#Update hosts
+echo "
+127.0.0.1	localhost
+127.0.1.1   $(cat /etc/hostname)	
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+" > /etc/hosts;
 
 #Setup new password for user
 print "\033[101mYour need to change default password for user: tionix-user, and tell him it!\033[0m\n";
