@@ -52,9 +52,11 @@ echo -e "\033[31m\033[4mENTERING TO CHROOT:\033[0m"
 chroot /mnt/system /bin/bash -x <<'EOF'
 source /etc/profile >> /dev/null;
 
+#------------REPLACE FOR /usr/sbin/update-kernel------------------
 #Generate initramfs
-rm /boot/initrd.img-*;
-update-initramfs -c -k $(ls /boot|egrep -o "$config-$(ls -l /boot | grep -m 1 -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$');
+#rm /boot/initrd.img-*;
+#update-initramfs -c -k $(ls /boot|egrep -o "$config-$(ls -l /boot | grep -m 1 -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$');
+#----------------------------------------------------------------
 
 #Install GRUB
 grub-install --force $installation_disk;

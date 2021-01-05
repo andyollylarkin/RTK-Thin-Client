@@ -7,6 +7,11 @@
 - squashfs-tools<br>
 - syslinux-utils<br>
 
+```shell
+sudo apt-get install -y xorriso squashfs-tools syslinux-utils
+```
+
+
 ## Build and install new release process
 1) Install previous image for build the new image on a clean system<br>
 2) Make the necessary changes<br>
