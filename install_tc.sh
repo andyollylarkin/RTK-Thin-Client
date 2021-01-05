@@ -13,7 +13,7 @@ while true; do
         disk_space=$space;
         break;
     else
-        print "\033[101mIncorrect input format. Use xxG, e.g.\033[0m \033[102m20G\033[0m";
+        echo -e "\033[101mIncorrect input format. Use xxG, e.g.\033[0m \033[102m20G\033[0m";
         continue;
     fi
 done
