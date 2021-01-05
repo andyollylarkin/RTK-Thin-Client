@@ -53,6 +53,7 @@ chroot /mnt/system /bin/bash -x <<'EOF'
 source /etc/profile >> /dev/null;
 
 #Generate initramfs
+rm /boot/initrd.img-*;
 update-initramfs -c -k $(ls /boot|egrep -o "$config-$(ls -l /boot | grep -m 1 -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$');
 
 #Install GRUB
