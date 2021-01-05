@@ -8,8 +8,8 @@ echo -e "\033[31m\033[4mWIPING DISK:\033[0m"
 wipe $installation_disk;
 
 while true; do
-    read -p "\033[101mSet disk space for system (Dont recommend set more than 20Gb),(Set as xxG, where xx is the number of Gigabytes).\033[0m\n" space
-    if [[ echo ${space}|grep -Eo "\w\b" == "G" ]]; then
+    read -p "Set disk space for system (Dont recommend set more than 20Gb),(Set as xxG, where xx is the number of Gigabytes) ->" space
+    if [[ $(echo ${space}|grep -Eo "\w\b") == "G" ]]; then
         disk_space=$space;
         break;
     else
