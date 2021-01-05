@@ -5,6 +5,7 @@
 - System RescueCD [v7.01](https://osdn.net/projects/systemrescuecd/storage/releases/7.01/systemrescue-7.01-amd64.iso)<br>
 - xorisso<br>
 - squashfs-tools<br>
+- syslinux-utils<br>
 
 ## Build and install new release process
 1) Install previous image for build the new image on a clean system<br>
